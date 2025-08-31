@@ -28,3 +28,9 @@ jobs:
       - name: Run Taurus Test
         run: |
           bzt test.yml  # Ensure this path is correct relative to the root of your repository
+
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: taurus-artifacts
+          path: /home/runner/work/performance_CI/performance_CI/*  # Adjust this path to match your artifacts directory
