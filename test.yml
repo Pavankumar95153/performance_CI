@@ -1,0 +1,48 @@
+execution: 
+  - executor: jmeter 
+    scenario: configure flight-Http 
+    concurrency: 20 
+    ramp-up: 1m 
+    hold-for: 5m 
+
+scenarios: 
+  configure flight-Http: 
+    requests: 
+      - transaction: Home 
+        do: 
+          - url: 'https://blazedemo.com/' 
+            method: GET 
+      - transaction: Depart/Dest 
+        force-parent-sample: false 
+        do: 
+          - url: 'https://blazedemo.com/reserve.php' 
+            method: POST 
+            body: 
+              fromPort: Philadelphia 
+              toPort: London 
+      - transaction: Choose Flight 
+        do: 
+          - url: 'https://blazedemo.com/purchase.php' 
+            method: POST 
+            body: 
+              airline: Virgin America 
+              flight: '43' 
+              fromPort: Philadelphia 
+              price: '472.56' 
+              toPort: London 
+      - transaction: Send Form 
+        do: 
+          - url: 'https://blazedemo.com/confirmation.php' 
+            method: POST 
+            body: 
+              address: 123 Street 
+              cardType: visa 
+              city: Somewhere 
+              creditCardMonth: '11' 
+              creditCardNumber: '12345' 
+              creditCardYear: '2017' 
+              inputName: James Panetti 
+              nameOnCard: James Panetti 
+              state: Someplace 
+              zipCode: '12345'
+
