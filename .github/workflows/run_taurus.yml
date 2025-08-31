@@ -33,4 +33,6 @@ jobs:
         uses: actions/download-artifact@v4
         with:
            name: my-artifact-name
-           path: /home/runner/work/performance_CI/performance_CI/*
+           run: |
+          echo "Downloaded files:"
+          ls -la  # List the files in the current directory to verify download
